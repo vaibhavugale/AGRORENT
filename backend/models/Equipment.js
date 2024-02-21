@@ -49,6 +49,10 @@ const equipmentSchema = new mongoose.Schema({
         require:true,
        default: true,
       
+      },
+      features:{
+        type:String,
+        default:""
       }
 })
 

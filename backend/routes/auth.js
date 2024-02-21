@@ -9,6 +9,5 @@ const {sendMessage} = require("../services/whatsappService.js");
 router.post("/login",signIn);
 router.get("/getList",getListOfEquipment);
 router.post("/signup",signUp);
-router.post("/logout",logout)
-router.post("/send-message",sendMessage);
+router.post("/logout",logout);
 module.exports = router

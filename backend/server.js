@@ -10,7 +10,7 @@ const authRoutes = require("./routes/auth");
 const equipmentRoutes = require("./routes/equipmentRoutes");
 const profileRoute = require("./routes/profile")
 const { authentication } = require("./middleware/Auth");
-const { sendMessage } = require("./services/whatsappService.js");
+const bookingRouters = require("./routes/bookingRotes")
 
 const router = require("express").Router();
 
@@ -40,11 +40,12 @@ cloudinaryConnect();
 
 dataBase.connect();
 
-
-app.use("/auth",authRoutes);
 const PORT = process.env.PORT || 4000;
+app.use("/auth",authRoutes);
 app.use("/equ",authentication,equipmentRoutes);
-app.use("/profile",authentication,profileRoute)
+app.use("/profile",authentication,profileRoute);
+app.use("/book",bookingRouters)
+
 
 app.listen(PORT,()=>{
     console.log(`Running on port ${PORT}`)

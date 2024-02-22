@@ -4,10 +4,10 @@ import { IoLogoModelS } from "react-icons/io";
 import { FcFactoryBreakdown } from "react-icons/fc";
 import { FaRupeeSign } from "react-icons/fa";
 
-const ProductCard = ({cardData}) => {
-    const {model,rate ,  manufacturer,image,name} = cardData;
+const ProductCard = ({cardData,setEquID,setModal}) => {
+    const {model,rate ,  manufacturer,image,name,_id} = cardData;
   return (
-    <div className=" relative bg-white md:w-[400px] flex justify-start items-center flex-col rounded-b-sm overflow-clip rounded-md">
+    <div className=" relative bg-white md:w-[350px] flex justify-start items-center flex-col rounded-b-sm overflow-clip rounded-md">
       <img
         className=" max-w-full md:min-h-[250px] md:max-h-[250px] w-[300px]  object-cover"
         src={image}
@@ -28,12 +28,16 @@ const ProductCard = ({cardData}) => {
             <FcFactoryBreakdown size={20} /> {manufacturer}
           </p>
           <p className=" flex justify-center items-center gap-2">
-            <FaRupeeSign size={20} /> 100 {rate}/hr
+            <FaRupeeSign size={20} />  {rate}/hr
           </p>
         </div>
       </div>
       <div className=" flex justify-end w-[100%] gap-5 p-3">
-        <Button backGroundColor={"bg-red-600"} title={"Delete"} />
+        <button onClick={(e)=>{
+          e.stopPropagation();
+          setEquID(_id);
+          setModal(true);
+        }} className= {` p-2 hover:bg-red-700 transition-all duration-300 text-white bg-red-600 font-semibold rounded-md  cursor-pointer`} >Delete</button>
         <Button title={"update"} />
       </div>
     </div>

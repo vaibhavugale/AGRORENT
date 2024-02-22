@@ -10,22 +10,29 @@ const authRoutes = require("./routes/auth");
 const equipmentRoutes = require("./routes/equipmentRoutes");
 const profileRoute = require("./routes/profile")
 const { authentication } = require("./middleware/Auth");
-const bookingRouters = require("./routes/bookingRotes")
-
-const router = require("express").Router();
-
+const bookingRouters = require("./routes/bookingRotes");
+const http = require('http');
+const socketIo = require('socket.io');
+const server = http.createServer(app);
+const io = socketIo(server,{
+	cors:{
+		origin:["https://agrorent.vercel.app","http://localhost:3000","*"],
+		credentials:true,
+		
+	}
+});
 
 dotenv.config();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-	cors({
-		origin:["https://agrorent.vercel.app","http://localhost:3000","*"],
-		credentials:true,
+// app.use(
+// 	cors({
+// 		origin:["https://agrorent.vercel.app","http://localhost:3000","*"],
+// 		credentials:true,
 		
-	})
-)
+// 	})
+// )
 
 app.use(
 	fileUpload({
@@ -46,7 +53,12 @@ app.use("/equ",authentication,equipmentRoutes);
 app.use("/profile",authentication,profileRoute);
 app.use("/book",bookingRouters)
 
-
-app.listen(PORT,()=>{
+io.on("connection",(socket)=>{
+	// console.log("User connected..",socket.id)
+	socket.on('disconnect', () => {
+		console.log('A user disconnected');
+	  });
+})
+server.listen(PORT,()=>{
     console.log(`Running on port ${PORT}`)
 })

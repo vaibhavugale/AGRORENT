@@ -10,3 +10,4 @@ export const UPDATE_IMAGE = BASE_URL+"/profile/updateImage";
 export const REGISTER_EQUIPMENT = BASE_URL+"/equ/registerEquipment";
 export const GET_ALL_LIST = BASE_URL+"/auth/getList"
 export const GET_USER_PRODUCT = BASE_URL+"/user-equipment";
+export const DELETE_EQUIPMENT_API = BASE_URL +"/equ/delete-equipment"

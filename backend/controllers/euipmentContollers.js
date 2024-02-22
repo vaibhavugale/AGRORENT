@@ -146,10 +146,17 @@ exports.nearByEquipmentSuggestionAlgorithm = async (req,res) =>{
     }
 }
 
-exports.deleteEquipment =async (req,res) =>{
+exports.deleteEquipment = async (req,res) =>{
    const {equID} = req.body;
    try{
+        if(!equID){
+            return res.status(404).json({
+                success:false,
+                message:"Provide Require data"
+            })
+        }
         const result = await equipment.findOneAndDelete({_id:equID});
+        console.log(result);
       
         return res.status(200).json({
                 success:true,

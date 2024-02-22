@@ -7,6 +7,8 @@ import Footer from "./components/footer/Footer";
 import { getAddress } from "./api/getCurrentAddress";
 import { setAddress } from "./store/slices/userSlice";
 import { getALlEquipment } from "./api/equipmentApi";
+import io from 'socket.io-client';
+const socket = io('http://localhost:4000');
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,6 +40,8 @@ const App = () => {
       getIp();
 
       dispatch(getALlEquipment());
+  
+      return () => socket.disconnect();
   }, []);
 
   return (

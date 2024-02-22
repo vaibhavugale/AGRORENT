@@ -24,6 +24,7 @@
     "follow-redirects": "^1.15.5",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.1",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "socket.io": "^4.7.4"
   }
 }

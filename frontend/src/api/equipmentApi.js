@@ -36,10 +36,10 @@ export function getALlEquipment (){
     }
 }
 
-export async function DeleteEquipment(equID){
+export async function DeleteEquipment(equID,socketID){
     const toastId = toast.loading("Wait, You request is in process.")
     try{
-    const result = await apiConnector("POST",DELETE_EQUIPMENT_API,{equID});
+    const result = await apiConnector("POST",DELETE_EQUIPMENT_API,{equID,socketID});
     if(result?.data?.success){
         toast.success("Deleted Successfully");
         toast.dismiss(toastId);

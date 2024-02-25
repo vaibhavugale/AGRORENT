@@ -10,6 +10,7 @@ const initialState = {
       country:"",
       pincode:""
     },
+    socketID:"",
 }
 
 export const userSlice = createSlice({
@@ -28,12 +29,18 @@ export const userSlice = createSlice({
     },
     setAddress(state,value){
       state.address = value.payload
+    },
+    setSocketID(state,value){
+      state.socketID = value.payload;
+    },
+    setUserEqu(state,value){
+      state.userData.equipments=value.payload;
     }
   },
 });
 
 // this is for dispatch
-export const { setUser,setToken ,setImg,setAddress} = userSlice.actions;
+export const { setUser,setToken ,setImg,setAddress,setSocketID,setUserEqu} = userSlice.actions;
 
 // this is for configureStore
 export default userSlice.reducer;

@@ -147,21 +147,29 @@ exports.nearByEquipmentSuggestionAlgorithm = async (req,res) =>{
 }
 
 exports.deleteEquipment = async (req,res) =>{
-   const {equID} = req.body;
+   const {equID,socketID} = req.body;
+   const userID = req.body.user?.user?._id;
    try{
-        if(!equID){
+        if(!equID || !socketID){
             return res.status(404).json({
                 success:false,
                 message:"Provide Require data"
             })
         }
+        // const result = true;
         const result = await equipment.findOneAndDelete({_id:equID});
-        console.log(result);
-      
-        return res.status(200).json({
+        // console.log(result)
+        const allEqp = await equipment.find({});
+        const userEqu = await User.findById({_id:userID}).populate("equipments");
+        if(result){
+            io.to(socketID).emit("equipmentDeleted",{userEqu})
+            return res.status(200).json({
                 success:true,
                 message:"Equipment Deleted Successfully"
             })
+        }else{
+          throw new Error("Failed to Delete")
+       }
        
    }catch(err){
     return res.status(500).json({

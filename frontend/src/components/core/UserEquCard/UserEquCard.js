@@ -4,15 +4,17 @@ import ProductCard from './ProductCard/ProductCard';
 import {motion,AnimatePresence} from "framer-motion";
 import ShowMoreCard from './ShowMoreCard/ShowMoreCard';
 import { DeleteEquipment } from '../../../api/equipmentApi';
+import { useSelector } from 'react-redux';
 const UserEquCard = () => {
     const { location, user } = useOutletContext();
     const [selectedId, setSelectedId] = useState(null);
     const [modalData,setModalData] = useState(null);
     const [equID,setEquID] = useState(null);
     const [modal,setModal] = useState(false);
+    const socketID = useSelector((state)=>state.userSlice.socketID);
 
     function handelDelete(eupID){
-     DeleteEquipment(equID); 
+     DeleteEquipment(equID,socketID); 
      setModal(false);
     }
   return (

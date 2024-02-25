@@ -5,10 +5,11 @@ import Header from "./components/header/Header";
 import { useDispatch } from "react-redux";
 import Footer from "./components/footer/Footer";
 import { getAddress } from "./api/getCurrentAddress";
-import { setAddress } from "./store/slices/userSlice";
+import { setAddress, setUserEqu } from "./store/slices/userSlice";
 import { getALlEquipment } from "./api/equipmentApi";
+import { setSocketID } from "./store/slices/userSlice";
 import io from 'socket.io-client';
-const socket = io('http://localhost:4000');
+const socket = io(process.env.REACT_APP_BASE_URL);
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -40,10 +41,15 @@ const App = () => {
       getIp();
 
       dispatch(getALlEquipment());
-  
+
       return () => socket.disconnect();
   }, []);
-
+  socket.on("connect",()=>{
+    dispatch(setSocketID(socket.id));
+    })
+  socket.on("equipmentDeleted",({userEqu})=>{
+    dispatch(setUserEqu(userEqu?.equipments));
+  })
   return (
     <div className="  min-w-[100vw] min-h-[100vh]  box-border  overflow-clip ">
       <Header />

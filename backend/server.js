@@ -21,18 +21,19 @@ const io = socketIo(server,{
 		
 	}
 });
+global.io = io;
 
 dotenv.config();
 
 app.use(express.json());
 app.use(cookieParser());
-// app.use(
-// 	cors({
-// 		origin:["https://agrorent.vercel.app","http://localhost:3000","*"],
-// 		credentials:true,
+app.use(
+	cors({
+		origin:["https://agrorent.vercel.app","http://localhost:3000","*"],
+		credentials:true,
 		
-// 	})
-// )
+	})
+)
 
 app.use(
 	fileUpload({
@@ -54,7 +55,7 @@ app.use("/profile",authentication,profileRoute);
 app.use("/book",bookingRouters)
 
 io.on("connection",(socket)=>{
-	// console.log("User connected..",socket.id)
+	console.log("userConnected")
 	socket.on('disconnect', () => {
 		console.log('A user disconnected');
 	  });

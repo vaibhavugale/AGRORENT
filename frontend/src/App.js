@@ -7,8 +7,9 @@ import Footer from "./components/footer/Footer";
 import { getAddress } from "./api/getCurrentAddress";
 import { setAddress, setUserEqu } from "./store/slices/userSlice";
 import { getALlEquipment } from "./api/equipmentApi";
-import { setSocketID } from "./store/slices/userSlice";
+import { setSocketID,appendEqu } from "./store/slices/userSlice";
 import io from 'socket.io-client';
+import { setAllEqu } from "./store/slices/equSlice";
 const socket = io(process.env.REACT_APP_BASE_URL);
 const App = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,18 @@ const App = () => {
     })
   socket.on("equipmentDeleted",({userEqu})=>{
     dispatch(setUserEqu(userEqu?.equipments));
+    localStorage.setItem('userData',JSON.stringify(userEqu));
+  })
+  socket.on("equipmentDeletedToAll",({allEqp})=>{
+    dispatch(setAllEqu(allEqp));
+  })
+  socket.on("equipmentAdded",({allEqp})=>{
+    dispatch(setAllEqu(allEqp));
+  })
+  socket.on("equAddedForUser",({userEqu})=>{
+    // console.log("equipment",userEqu);
+    dispatch(setUserEqu(userEqu?.equipments));
+    localStorage.setItem('userData',JSON.stringify(userEqu));
   })
   return (
     <div className="  min-w-[100vw] min-h-[100vh]  box-border  overflow-clip ">

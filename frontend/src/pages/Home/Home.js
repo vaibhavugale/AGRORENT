@@ -138,7 +138,7 @@ const Home = () => {
         >
           {allEqu.map((img,index) => {
             return (
-              <SwiperSlide key={index}>
+              <SwiperSlide className=" cursor-pointer" key={index} onClick={()=>navigate("/search")}>
                 <img
                   src={img?.image}
                   className=" w-[300px]  h-[300px] shadow-2xl rounded-md object-contain"

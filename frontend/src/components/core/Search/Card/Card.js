@@ -3,7 +3,7 @@ import { IoLogoModelS } from "react-icons/io";
 import { FcFactoryBreakdown } from "react-icons/fc";
 import { FaRupeeSign } from "react-icons/fa";
 
-const Card = ({cardData , setShowModal}) => {
+const Card = ({cardData,setModalData , setShowModal,setSelectedId}) => {
 
   const {name,image,model,manufacturer,rate} = cardData;
   return ( 
@@ -28,7 +28,10 @@ const Card = ({cardData , setShowModal}) => {
           setShowModal(true);
           
         }} className=' bg-green-700 text-white md:px-4 md:py-2 p-2 text-sm md:text rounded-md hover:bg-green-800 transition-all duration-300'>Book</button>
-        <button className=' outline outline-slate-400 md:px-1  md:p-0 p-1 text-sm   md:text  rounded-md'>show more</button>
+        <button onClick={() => {
+            setSelectedId(cardData?._id);
+            setModalData(cardData);
+          }} className=' outline outline-slate-400 md:px-1  md:p-0 p-1 text-sm   md:text  rounded-md'>show more</button>
       </div>
      </div>
      <img src={image} className={` hover:scale-105 transition-all duration-300 cursor-pointer border w-[150px] h-[120px] mx-auto  md:m-0 rounded-sm object-cover`}  alt='img' />

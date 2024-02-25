@@ -7,12 +7,16 @@ import { toast } from "react-hot-toast";
 import styles from "./search.module.css";
 import { Transition } from "@headlessui/react";
 import { Dialog } from "@headlessui/react";
+import {motion,AnimatePresence} from "framer-motion";
+import ShowMoreCard from "../UserEquCard/ShowMoreCard/ShowMoreCard";
 
 const Index = () => {
   const [showIndexAccordion, setShowIndexAccordion] = useState(true);
   const allEqu = useSelector((state) => state?.equSlice?.allEqu);
   const [filterData, setFilterData] = useState(allEqu);
   const [showModal, setShowModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [modalData,setModalData] = useState(null);
   useEffect(() => {
     setFilterData(allEqu);
   }, [allEqu]);
@@ -78,6 +82,8 @@ const Index = () => {
         setShowModal={setShowModal}
         showIndexAccordion={showIndexAccordion}
         setShowIndexAccordion={setShowIndexAccordion}
+        setSelectedId={setSelectedId}
+        setModalData={setModalData}
       />
 
       <Transition
@@ -112,6 +118,17 @@ const Index = () => {
           </div>
         </div>
       </Transition>
+
+
+
+
+      <AnimatePresence>
+  {selectedId && (
+    <motion.div layoutId={selectedId} className=' absolute  flex justify-center top-0 left-0 w-full h-full bg-slate-600 bg-opacity-45 ' onClick={()=>setSelectedId(null)}>
+       <ShowMoreCard data={modalData} setSelectedId={selectedId} />
+    </motion.div>
+  )}
+</AnimatePresence>
     </div>
   );
 };

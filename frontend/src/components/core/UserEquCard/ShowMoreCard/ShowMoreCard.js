@@ -1,12 +1,12 @@
 import React from 'react'
 import styles from "./style.module.css"
 
-const ShowMoreCard = ({data,selectedId}) => {
+const ShowMoreCard = ({data}) => {
     const {image,type,rate, manufacturer,name,model,year,capacity}= data;
     console.log(data)
   return (
-    <div className=' bg-white w-full h-min md:w-[50%]  mt-4 rounded-lg'>
-       <img src={image}  className='w-[300px] mx-auto' alt='img' loading='lazy'/>
+    <div className=' bg-white w-full h-min md:w-[40%]  mb-9 mt-4 rounded-lg'>
+       <img src={image}  className='md:w-[250px] w-[150px] mx-auto' alt='img' loading='lazy'/>
       <table className=' w-[90%] mx-auto mt-3 border mb-4'>
         <thead>
            <tr>

@@ -35,12 +35,15 @@ export const userSlice = createSlice({
     },
     setUserEqu(state,value){
       state.userData.equipments=value.payload;
+    },
+    appendEqu(state,value){
+      state.userData.equipments.push(value.payload);
     }
   },
 });
 
 // this is for dispatch
-export const { setUser,setToken ,setImg,setAddress,setSocketID,setUserEqu} = userSlice.actions;
+export const { setUser,setToken ,setImg,setAddress,setSocketID,setUserEqu,appendEqu} = userSlice.actions;
 
 // this is for configureStore
 export default userSlice.reducer;

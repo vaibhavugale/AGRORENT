@@ -10,11 +10,11 @@ import { RxCross2 } from "react-icons/rx";
 import {useForm} from "react-hook-form"
 import { registeredEquip } from "../../api/equipmentApi";
 const AddEquipment = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = useState(null);
   const [disabled,setDisabled] = useState(false);
-  const token = useSelector((state)=>state.userSlice.token)
+  const token = useSelector((state)=>state.userSlice.token);
+  const socketID = useSelector((state)=>state.userSlice.socketID);
  
 
   const {
@@ -28,8 +28,9 @@ const AddEquipment = () => {
   };
   const submitHandler = (data) =>{
     const formData = new FormData();
+    data.socketID = socketID;
     formData.append("image",data?.image[0]);
-    formData.append("data",JSON.stringify(data)); 
+    formData.append("data",JSON.stringify(data));
     
     dispatch(registeredEquip(formData,reset,setData,setDisabled,token));
   }

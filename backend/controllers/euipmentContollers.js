@@ -46,12 +46,12 @@ exports.getListOfEquipmentUserWise = async (req,res) =>{
 
 exports.registerEquipment = async (req,res) =>{
    try{
-    const {name,type,manufacturer,model,year,capacity,rate,feature} = JSON.parse(req.body.data);
+    const {name,type,manufacturer,model,year,capacity,rate,feature,socketID} = JSON.parse(req.body.data);
 
     const image = req.files.image;
     const  userId  = req?.body?.user?.user?._id;
 
-    if(!name || !type || !manufacturer || !model || !year || !rate){
+    if(!name || !type || !manufacturer || !model || !year || !rate || !socketID){
         return res.status(401).json({
             success:false,
             message:"Please fill required filled..."
@@ -73,12 +73,17 @@ exports.registerEquipment = async (req,res) =>{
 
     if(newEquipment){
             try{
-                await User.findOneAndUpdate({_id:userId},{
+                const allEqp = await equipment.find({});
+                const user = await User.findOneAndUpdate({_id:userId},{
                     $push:{
                         equipments:newEquipment._id
                     }
-                })
+                });
+                const userEqu = await User.findById({_id:userId}).populate("equipments");
+                io.emit("equipmentAdded",{allEqp});
+                io.to(socketID).emit("equAddedForUser",{userEqu});
         
+
                
 
             }catch(err){
@@ -162,7 +167,8 @@ exports.deleteEquipment = async (req,res) =>{
         const allEqp = await equipment.find({});
         const userEqu = await User.findById({_id:userID}).populate("equipments");
         if(result){
-            io.to(socketID).emit("equipmentDeleted",{userEqu})
+            io.to(socketID).emit("equipmentDeleted",{userEqu});
+            io.emit("equipmentDeletedToAll",{allEqp});
             return res.status(200).json({
                 success:true,
                 message:"Equipment Deleted Successfully"

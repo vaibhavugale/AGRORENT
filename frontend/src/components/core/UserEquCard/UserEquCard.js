@@ -23,7 +23,7 @@ const UserEquCard = () => {
      <div className=' w-full h-min grid  md:grid-cols-3  grid-cols-1 gap-5  p-5'>
 
         {
-          user?.equipments.map((cardData,index)=> (<motion.div key={cardData?._id} layoutId={cardData?._id} onClick={() => {
+          user?.equipments.map((cardData,index)=> (<motion.div key={index} layoutId={cardData?._id} onClick={() => {
             setSelectedId(cardData?._id);
             setModalData(cardData);
           }}>
@@ -40,7 +40,7 @@ const UserEquCard = () => {
 </AnimatePresence>
 
    {modal && <AnimatePresence>
-      <motion.div className=' absolute  flex justify-center top-0 left-0 w-full h-full bg-slate-600 bg-opacity-45'>
+      <motion.div className=' absolute  flex justify-center top-0 left-0 w-full md:h-full   bg-slate-600 bg-opacity-45'>
           <motion.div className=' bg-white gap-3 h-min translate-y-2/3 flex  rounded-sm flex-col   p-2 w-[250px]'>
           <p>Are you sure?</p>
             <div className=' flex justify-between'>

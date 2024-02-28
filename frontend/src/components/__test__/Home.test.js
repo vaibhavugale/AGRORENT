@@ -2,19 +2,31 @@ import { BrowserRouter } from "react-router-dom";
 import Home from "../../pages/Home/Home";
 import { Provider } from "react-redux";
 import store from "../../store/store";
-import { render } from '@testing-library/react';
+import { render ,screen} from '@testing-library/react';
+import {toBeInTheDocument} from "@testing-library/jest-dom"
 
-
-
-// Mock the Swiper component
-jest.mock('swiper/swiper-react.mjs', () => ({
-    Swiper: jest.fn().mockImplementation(() => <div data-testid="swiper" />),
-    SwiperSlide: jest.fn().mockImplementation(() => <div data-testid="swiper-slide" />)
-  }));
+jest.mock('swiper/react', () => ({
+  Swiper: ({ children }) => <div data-testid="swiper-testid">{children}</div>,
+  SwiperSlide: ({ children }) => (
+    <div data-testid="swiper-slide-testid">{children}</div>
+  ),
+}))
+jest.mock('swiper/modules', () => ({
+  Navigation: (props) => null,
+  Pagination: (props) => null,
+  Scrollbar: (props) => null,
+  A11y: (props) => null,
+}))
+jest.mock('swiper', () => ({
+  Navigation: (props) => null,
+  Pagination: (props) => null,
+  Scrollbar: (props) => null,
+  A11y: (props) => null,
+}))
 
 
 test('should load home page', () => { 
-   const getByTestId =  render(
+render(
         <BrowserRouter>
             <Provider store={store}>
                      <Home/>
@@ -22,5 +34,8 @@ test('should load home page', () => {
         </BrowserRouter>
      )
 
-    expect(r).toBe(2);
+    const name = screen.getAllByRole("Rent Pe Equipment chahiye Aajao boss dila dunga!!!");
+    expect(name).toBeInTheDocument();
+
+    // expect(r).toBe(2);
  })

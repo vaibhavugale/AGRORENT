@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useSelector } from "react-redux";
-import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css/navigation";

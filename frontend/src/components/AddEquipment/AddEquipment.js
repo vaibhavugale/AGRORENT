@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { logout } from "../../api/authApi";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Sup from "../../components/common/Sup/Sup";
 import ImagePreview from "../common/ImagePreview/ImagePreview";

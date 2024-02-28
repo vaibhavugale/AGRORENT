@@ -4,19 +4,30 @@ import { CiFilter } from "react-icons/ci";
 import Section from "./Section/Section";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
-import styles from "./search.module.css";
 import { Transition } from "@headlessui/react";
-import { Dialog } from "@headlessui/react";
 import {motion,AnimatePresence} from "framer-motion";
 import ShowMoreCard from "../UserEquCard/ShowMoreCard/ShowMoreCard";
+import {useForm} from "react-hook-form"
+import { sendBookRequest } from "../../../api/bookingApi";
+import {useNavigate} from "react-router-dom"
+
 
 const Index = () => {
   const [showIndexAccordion, setShowIndexAccordion] = useState(true);
   const allEqu = useSelector((state) => state?.equSlice?.allEqu);
+  const user = useSelector((state)=>state.userSlice.userData);
   const [filterData, setFilterData] = useState(allEqu);
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [modalData,setModalData] = useState(null);
+  const [equID,setEquID]  = useState("");
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   useEffect(() => {
     setFilterData(allEqu);
   }, [allEqu]);
@@ -49,9 +60,19 @@ const Index = () => {
     };
   };
 
-  const handelBooking = () => {
-    setShowModal(!showModal);
-    toast.success("Request sent Successfully");
+  const handelBooking = (data) => {
+    if(!user){
+     navigate("/login");
+     return ;
+    }else{
+      setShowModal(!showModal);
+      data.eupID = equID;
+      setEquID(null);
+      sendBookRequest(data,toast);
+    }
+    
+    
+
   };
 
   return (
@@ -84,6 +105,7 @@ const Index = () => {
         setShowIndexAccordion={setShowIndexAccordion}
         setSelectedId={setSelectedId}
         setModalData={setModalData}
+        setEquID={setEquID}
       />
 
       <Transition
@@ -96,14 +118,27 @@ const Index = () => {
         leaveTo="opacity-0"
       >
         <div
-          onClick={() => setShowModal(false)}
+          // onClick={(e) => setShowModal(false)}
           className={`  backdrop-blur-sm  flex justify-center items-center bottom-0 right-0 left-0 top-0 z-20 absolute`}
         >
-          <div className="     bg-slate-200 mx-auto w-[90%] md:w-[30%] md:h-[20%] shadow-2xl  -mt-[450px] rounded-md">
+          <div className="     bg-slate-200 mx-auto w-[90%] md:w-[30%] md:min-h-[20%] shadow-2xl  -mt-[450px] rounded-md">
+            <form onSubmit={handleSubmit(handelBooking)}>
             <p className=" text-center text-2xl py-5">Confirm Booking ? </p>
+            <div className=" flex flex-col p-5">
+              <label>Address</label>
+              <textarea  {...register("address",{required:true})} className=" p-3"  placeholder="Type Delivery Address"/>
+              {errors.address && <p className=" text-sm text-red-700">This is required</p>}
+            </div>
+            <div className=" flex  justify-center gap-2  mb-3 ">
+              <label>How many hour?</label>
+              <input type="number" className=" w-[20%] px-2 rounded-sm" {...register("hour",{required:true})}  placeholder="2" />
+              {errors.hour && <p className=" text-sm text-red-700">This is required</p>}
+            
+              
+            </div>
             <div className=" md:w-full  flex-row flex justify-around p-2">
               <button
-                onClick={handelBooking}
+                type="submit"
                 className=" bg-green-700  w-[100px]  md:min-w-[100px] transition-all duration-200 p-3 rounded-md text-white cursor-pointer hover:bg-green-800"
               >
                 Confirm
@@ -115,6 +150,7 @@ const Index = () => {
                 Cancel
               </button>
             </div>
+            </form>
           </div>
         </div>
       </Transition>

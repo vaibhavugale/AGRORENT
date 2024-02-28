@@ -13,6 +13,7 @@ const { authentication } = require("./middleware/Auth");
 const bookingRouters = require("./routes/bookingRotes");
 const http = require('http');
 const socketIo = require('socket.io');
+const { acceptRequest, rejectRequest } = require("./controllers/bookingController");
 const server = http.createServer(app);
 const io = socketIo(server,{
 	cors:{
@@ -52,6 +53,8 @@ const PORT = process.env.PORT || 4000;
 app.use("/auth",authRoutes);
 app.use("/equ",authentication,equipmentRoutes);
 app.use("/profile",authentication,profileRoute);
+app.post("/book/accept/:id",acceptRequest);
+app.post("/book/reject/:id",rejectRequest);
 app.use("/book",bookingRouters)
 
 io.on("connection",(socket)=>{

@@ -3,7 +3,7 @@ import { IoLogoModelS } from "react-icons/io";
 import { FcFactoryBreakdown } from "react-icons/fc";
 import { FaRupeeSign } from "react-icons/fa";
 
-const Card = ({cardData,setModalData , setShowModal,setSelectedId}) => {
+const Card = ({cardData,setModalData,setEquID , setShowModal,setSelectedId}) => {
 
   const {name,image,model,manufacturer,rate} = cardData;
   return ( 
@@ -26,6 +26,8 @@ const Card = ({cardData,setModalData , setShowModal,setSelectedId}) => {
       <div className=' flex gap-2  md:mb-2 py-2 '>
         <button onClick={()=>{
           setShowModal(true);
+          setEquID(cardData?._id);
+          
           
         }} className=' bg-green-700 text-white md:px-4 md:py-2 p-2 text-sm md:text rounded-md hover:bg-green-800 transition-all duration-300'>Book</button>
         <button onClick={() => {

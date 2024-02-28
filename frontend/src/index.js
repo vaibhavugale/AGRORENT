@@ -22,6 +22,7 @@ import History from "./components/History/History";
 import Setting from "./components/Setting/Setting";
 import UserEquCard from "./components/core/UserEquCard/UserEquCard";
 import Search from "./components/core/Search/index"
+import BookRequestMOdal from "./components/core/BookRequestModal/BookRequestMOdal";
 const appRoutes = createBrowserRouter([
   {
     element: (
@@ -90,6 +91,9 @@ const appRoutes = createBrowserRouter([
       {
         path:"/search",
         element:<Search />
+      },{
+        path:"/accept-bookRequest/:id",
+        element:<BookRequestMOdal />
       }
       
     ],

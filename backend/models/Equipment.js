@@ -46,14 +46,14 @@ const equipmentSchema = new mongoose.Schema({
       },
       available:{
         type:Boolean,
-        require:true,
        default: true,
       
       },
       features:{
         type:String,
         default:""
-      }
+      },
+      history:{}
 })
 
 module.exports = mongoose.model('Equipment',equipmentSchema);

@@ -47,7 +47,7 @@ exports.sendBookRequest = async (req,res)=>{
 
 
 
-     http://localhost:3000/accept-bookRequest/${token}.
+     https://agrorent.vercel.app/accept-bookRequest/${token}.
     `;
 
     const resByTwilio =  sendSMS(message,ownerPhoneNumber); 

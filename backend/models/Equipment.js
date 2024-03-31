@@ -53,7 +53,9 @@ const equipmentSchema = new mongoose.Schema({
         type:String,
         default:""
       },
-      history:{}
+      history:[
+
+      ]
 })
 
 module.exports = mongoose.model('Equipment',equipmentSchema);

@@ -14,7 +14,13 @@ exports.signIn = async (req, res) => {
       });
     }
     // if user found return user
-    const user = await User.findOne({ username }).populate("equipments");
+    const user = await User.findOne({ username }).populate("equipments").populate({
+      path:"history",
+      populate:{
+        path:"eupId"
+      }
+  
+  });
     // if not return response
 
     if (!user) {

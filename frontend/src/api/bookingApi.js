@@ -1,4 +1,4 @@
-import { SEND_BOOK_REQUEST } from "../constant/constant";
+import { SEND_ACCEPT_URL, SEND_BOOK_REQUEST } from "../constant/constant";
 import { apiConnector } from "./apiConnector";
 
 
@@ -16,4 +16,22 @@ export async function sendBookRequest(data,toast){
         toast.dismiss(toastID);
         console.log(err)
     }
+}
+
+export async function sendAcceptRequest(id,toast,setAccepted){
+    const toastID = toast.loading("Wait,While processing")
+  try{
+
+    const res = await apiConnector("POST",SEND_ACCEPT_URL+id);
+
+    if(res){
+        toast.success(res?.data?.message);
+        toast.dismiss(toastID);
+        setAccepted(true);
+    }
+  }catch(err){
+    toast.error(err.message);
+    toast.dismiss(toastID);
+    console.log(err.message);
+  }
 }

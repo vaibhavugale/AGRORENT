@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-
+const User = require("../models/User")
+const Equipment = require("../models/Equipment")
 const historySchema = new mongoose.Schema({
    customerID:{
     type:mongoose.Schema.Types.ObjectId,
@@ -11,11 +12,10 @@ const historySchema = new mongoose.Schema({
     require:true,
     ref:'Equipment',
    },
-   history:[{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'History'
-    
-}],
+   inProgress:{
+    type:Boolean,
+    default:true,
+   }
     
 });
 

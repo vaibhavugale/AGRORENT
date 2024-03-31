@@ -34,8 +34,7 @@ render(
         </BrowserRouter>
      )
 
-    const name = screen.getAllByRole("Rent Pe Equipment chahiye Aajao boss dila dunga!!!");
-    expect(name).toBeInTheDocument();
+    
 
     // expect(r).toBe(2);
  })

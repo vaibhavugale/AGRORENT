@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Equipment = require('./Equipment');
+const History = require("./History")
 
 const userSchema = new mongoose.Schema({
     firstName : {
@@ -50,7 +51,12 @@ const userSchema = new mongoose.Schema({
     },
     address:{
        type:Object
-    }
+    },
+    history:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'History'
+        
+    }],
 
     
 });

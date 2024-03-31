@@ -8,12 +8,12 @@
   exports.sendSMS = async (message,ownerPhoneNumber) => {
       let messageOptions = {
           from: process.env.TWILIO_FROM_NUMBER,
-          to: '+919370141891',
+          to: `+91${ownerPhoneNumber}`,
           body: message
       }
       try {
           const message = await client.messages.create(messageOptions);
-          // console.log(message);
+        //   console.log(message);
       } catch (error) {
           console.log(error);
       }

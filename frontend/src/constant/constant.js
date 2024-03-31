@@ -12,3 +12,4 @@ export const GET_ALL_LIST = BASE_URL+"/auth/getList"
 export const GET_USER_PRODUCT = BASE_URL+"/user-equipment";
 export const DELETE_EQUIPMENT_API = BASE_URL +"/equ/delete-equipment"
 export const SEND_BOOK_REQUEST = BASE_URL + "/book/send-book-request"
+export const SEND_ACCEPT_URL = BASE_URL+"/book/accept/"

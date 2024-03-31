@@ -53,9 +53,10 @@ const PORT = process.env.PORT || 4000;
 app.use("/auth",authRoutes);
 app.use("/equ",authentication,equipmentRoutes);
 app.use("/profile",authentication,profileRoute);
+app.use("/book",authentication,bookingRouters)
 app.post("/book/accept/:id",acceptRequest);
 app.post("/book/reject/:id",rejectRequest);
-app.use("/book",bookingRouters)
+
 
 io.on("connection",(socket)=>{
 	console.log("userConnected")

@@ -19,8 +19,8 @@ exports.signIn = async (req, res) => {
       populate:{
         path:"eupId"
       }
-  
   });
+  const user01 = await User.findOne({ username })
     // if not return response
 
     if (!user) {
@@ -32,7 +32,7 @@ exports.signIn = async (req, res) => {
     const result = await bcrypt.compare(password, user?.password);
 
     if (result) {
-      const token = jwt.sign({ user: user }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ user: user01 }, process.env.JWT_SECRET, {
         expiresIn: "24h",
       });
       user.token = token;

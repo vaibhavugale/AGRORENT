@@ -5,11 +5,14 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
+import GoogleMap from "google-map-react";
 import "swiper/css";
 import { useSelector } from "react-redux";
 import "swiper/css/pagination";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css/navigation";
+import DummyCard from "../../components/common/ShimmerCard/DummyCard";
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 const Home = () => {
   const navigate = useNavigate();
@@ -133,19 +136,48 @@ const Home = () => {
             disableOnInteraction: false,
           }}
           scrollbar={{ draggable: true }}
-          className= " h-[400px] mt-8 "
+          className=" h-[400px] mt-8 "
         >
-          {allEqu.map((img,index) => {
-            return (
-              <SwiperSlide className=" cursor-pointer" key={index} onClick={()=>navigate("/search")}>
-                <img
-                  src={img?.image}
-                  className=" w-[300px]  h-[300px] shadow-2xl rounded-md object-contain"
-                  alt="img"
-                />
+          {allEqu.length == 0 ? (
+            <>
+              <SwiperSlide
+                className=" cursor-pointer"
+                onClick={() => navigate("/search")}
+              >
+                <DummyCard />
               </SwiperSlide>
-            );
-          })}
+              <SwiperSlide
+                className=" cursor-pointer"
+                onClick={() => navigate("/search")}
+              >
+                <DummyCard />
+              </SwiperSlide>
+              <SwiperSlide
+                className=" cursor-pointer"
+                onClick={() => navigate("/search")}
+              >
+                <DummyCard />
+              </SwiperSlide>
+            </>
+          ) : (
+            <>
+              {allEqu.map((img, index) => {
+                return (
+                  <SwiperSlide
+                    className=" cursor-pointer"
+                    key={index}
+                    onClick={() => navigate("/search")}
+                  >
+                    <img
+                      src={img?.image}
+                      className=" w-[300px]  h-[300px] shadow-2xl rounded-md object-contain"
+                      alt="img"
+                    />
+                  </SwiperSlide>
+                );
+              })}
+            </>
+          )}
         </Swiper>
       </div>
 
@@ -155,6 +187,22 @@ const Home = () => {
           <img src={logo} className=" md:w-[300px]  w-[30vh]" />
         </div>
       </div>
+
+      {/* <div className=" w-full h-[100vh]">
+        <GoogleMap
+          defaultZoom={15}
+          defaultCenter={{
+            lat: 18.46187019989448,
+            lng: 73.8380342011331,
+          }}
+        >
+          <AnyReactComponent
+            lat={18.46187019989448}
+            lng={73.8380342011331}
+            text="My Marker"
+          />
+        </GoogleMap>
+      </div> */}
     </div>
   );
 };

@@ -61,13 +61,16 @@ const Index = () => {
   };
 
   const handelBooking = (data) => {
+  
+
     if(!user){
      navigate("/login");
      return ;
     }else{
       setShowModal(!showModal);
-      data.eupID = equID;
+      data["eupID"] = equID;
       setEquID(null);
+      // console.log(data);
       sendBookRequest(data,toast);
     }
     

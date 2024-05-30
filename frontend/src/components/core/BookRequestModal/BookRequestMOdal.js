@@ -8,6 +8,7 @@ const BookRequestMOdal = () => {
   const { id } = useParams();
   const [accepted, setAccepted] = useState(false);
   const handelAccept = () => {
+    setAccepted(!accepted);
     sendAcceptRequest(id, toast,setAccepted);
   };
   const handelReject = () => {};

@@ -6,6 +6,7 @@ import styles from "./styles.module.css"
 import { useSelector } from "react-redux";
 const History = () => {
   const rowsData = useSelector((state)=>state.userSlice?.userData?.history)
+  const user = useSelector((state)=>state.userSlice?.userData)
   return (
     <div className=" md:w-[1080px] mx-auto bg-slate-200 p-2">
       <p className=" tracking-widest  mt-6">/profile/history</p>
@@ -18,12 +19,13 @@ const History = () => {
               <td className=" ">Equipment</td>
               <td className=" ">History ID</td>
               <td className="   ">Progress</td>
+              <td>Action</td>
             </tr>
           </thead>
           <tbody>
            {
             rowsData?.map((rowData)=>(
-              <TableRow key={rowData?._id} rowData={rowData}>
+              <TableRow key={rowData?._id} user={user} rowData={rowData}>
              
               {rowData?.inProgress ? (<>  <LuActivity /> In Progress</>):(<><FcOk />Completed</>)}
               </TableRow>

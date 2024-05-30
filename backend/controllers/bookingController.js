@@ -50,6 +50,7 @@ exports.sendBookRequest = async (req,res)=>{
 
      http://localhost:3000/accept-bookRequest/${token}.
     `;
+    console.log(`http://localhost:3000/accept-bookRequest/${token}`)
 
     const resByTwilio =  sendSMS(message,ownerPhoneNumber); 
     // console.log(message);
@@ -83,8 +84,13 @@ exports.acceptRequest = async (req,res)=>{
         $push:{
             history:history?._id
         }
-    })
-
+    })   
+        const ownerId = eup?.owner?._id;
+        const ownerHistory = await User.findOneAndUpdate({_id:ownerId},{
+            $push:{
+                history:history?._id
+            }
+        })
         const ownerPhoneNumber = eup?.owner?.phoneNumber;
         const customerPhoneNumber = user?.phoneNumber;
 
@@ -112,7 +118,7 @@ exports.acceptRequest = async (req,res)=>{
         `
         const resByTwilioEup =  sendSMS(eupOwnerMessage,ownerPhoneNumber); 
         const resByTwilioCus =  sendSMS(customerMessage,customerPhoneNumber); 
-        const allEqp = await equipment.find({});
+        const allEqp = await Equipment.find({});
         io.emit("equipmentAdded",{allEqp});
         return res.status(200).json({
             success:true,
@@ -129,6 +135,23 @@ exports.acceptRequest = async (req,res)=>{
 }
 exports.rejectRequest = async (req,res)=>{
     try{
+        const token = req.params.id;
+        const decode = jwt.verify(token,process.env.JWT_SECRET);
+        const eupID = decode?.eupID;
+        const cusId = decode?.customerId;
+
+        const user = await User.findOne({_id:cusId});
+        const customerPhoneNumber = user?.phoneNumber;
+
+        const message = `
+        
+        sorry,Your Request has been rejected by seller.
+        `
+        const resByTwilioEup =  sendSMS(message,customerPhoneNumber); 
+
+        return res.status(200).json({
+            success:true
+        })
 
     }catch(err){
         return res.status(500).json({

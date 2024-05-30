@@ -78,43 +78,7 @@ const App = () => {
   return (
     <div className="  min-w-[100vw] min-h-[100vh]  box-border relative  overflow-clip ">
       <Header />
-      <Outlet />
-    <div className=" w-full h-[100vh]">
-    <GoogleMap
-      defaultZoom={15}
-      defaultCenter={{
-        lat: 18.46187019989448,
-        lng:  73.8380342011331,
-      }}
-    >
-     <AnyReactComponent
-          lat={18.46187019989448}
-          lng={ 73.8380342011331}
-          text="My Marker"
-        />
-    </GoogleMap>
-    </div>
-      
-{/*    
-        <motion.div
-          drag
-          onTap={() => setShowChatBot(!showChatBot)}
-          className=" flex items-end flex-col"
-        >
-          <div className={`${!showChatBot ? "hidden" : "block"}`}>
-            <Chatbot
-              config={config}
-              messageParser={MessageParser}
-              actionProvider={ActionProvider}
-            />
-          </div>
-
-
-          <div className=" w-[70px] cursor-pointer  flex justify-center items-center mt-2 h-[70px] bg-OR-50 rounded-full ">
-            <MdMessage size={40} className=" text-white" />
-          </div>
-        </motion.div> */}
-    
+      <Outlet />   
       <Footer />
     </div>
   );

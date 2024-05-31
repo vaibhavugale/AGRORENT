@@ -38,7 +38,7 @@ const ProductCard = ({cardData,setEquID,setModal}) => {
           setEquID(_id);
           setModal(true);
         }} className= {` p-2 hover:bg-red-700 transition-all duration-300 text-white bg-red-600 font-semibold rounded-md  cursor-pointer`} >Delete</button>
-        <Button title={"update"} />
+        {/* <Button title={"update"} /> */}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { sendAcceptRequest } from "../../../api/bookingApi";
+import { sendAcceptRequest, sendRejectRequest } from "../../../api/bookingApi";
 import { toast } from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
 import { FcApproval } from "react-icons/fc";
@@ -11,7 +11,10 @@ const BookRequestMOdal = () => {
     setAccepted(!accepted);
     sendAcceptRequest(id, toast,setAccepted);
   };
-  const handelReject = () => {};
+  const handelReject = () => {
+    setAccepted(!accepted);
+   sendRejectRequest(id,toast,setAccepted);
+  };
   return (
     <div className=" w-[100vw] h-[100vh] bg-slate-500 flex justify-center  items-center ">
       <motion.div className=" bg-white md:w-[30%] w-[70%] h-[20%] flex justify-center items-center rounded-md -translate-y-[90%]">
